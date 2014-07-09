@@ -37,4 +37,6 @@ permissions:
     tcl.staff.remove:
        description: Perm for the command /staff remove <Player Name>
        default: op
-	   
+    tcl.staff.chat:
+       description: Perm for the command /staff chat <Message>
+       default: op

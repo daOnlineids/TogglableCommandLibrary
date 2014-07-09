@@ -14,6 +14,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.util.ChatPaginator;
 
 public class TCLStaff implements CommandExecutor{
@@ -59,6 +60,13 @@ public class TCLStaff implements CommandExecutor{
 						return true;
 					}
 					listStaff(sender, 1);
+				}else if(args[0].equalsIgnoreCase("chat")){
+					if(!sender.hasPermission("tcl.staff.chat")){
+						Settings.sendLang(sender, Lang.NO_PERMS);
+						return true;
+					}
+					Settings.Usage(sender, Commands.STAFF);
+					return true;
 				}else{
 					Settings.Usage(sender, Commands.STAFF);
 					return true;
@@ -85,6 +93,7 @@ public class TCLStaff implements CommandExecutor{
 					cs.add(p.getName());
 					plugin.getConfig().set("staff", cs);
 					plugin.saveConfig();
+					Settings.sendLang(sender, Lang.STAFF_ADDED.toString().replace("{PLAYER}", p.getName()));
 				}else if(args[0].equalsIgnoreCase("remove")){
 					if(!sender.hasPermission("tcl.staff.remove")){
 						Settings.sendLang(sender, Lang.NO_PERMS);
@@ -106,6 +115,7 @@ public class TCLStaff implements CommandExecutor{
 					cs.remove(p.getName());
 					plugin.getConfig().set("staff", cs);
 					plugin.saveConfig();
+					Settings.sendLang(sender, Lang.STAFF_REMOVED.toString().replace("{PLAYER}", p.getName()));
 				}else if(args[0].equalsIgnoreCase("list")){
 					if(!sender.hasPermission("tcl.staff.list")){
 						Settings.sendLang(sender, Lang.NO_PERMS);
@@ -124,9 +134,68 @@ public class TCLStaff implements CommandExecutor{
 						return true;
 					}
 					listStaff(sender, pageNum);
+				}else if(args[0].equalsIgnoreCase("chat")){
+					if(!(sender instanceof Player)){
+						Settings.sendLang(sender, Lang.PLAYER_ONLY);
+						return true;
+					}
+					Player pl = (Player) sender;
+					if(!sender.hasPermission("tcl.staff.chat")){
+						Settings.sendLang(sender, Lang.NO_PERMS);
+						return true;
+					}
+					List<String> cs = plugin.getConfig().getStringList("staff");
+					if(cs == null){
+						cs = new ArrayList<String>();
+					}
+					if(!cs.contains(pl.getName())){
+						Settings.sendLang(sender, "&cYou must be staff to use this!");
+						return true;
+					}
+					StringBuilder sb = new StringBuilder();
+					for(int i = 1; i < args.length; i++){
+						sb.append(args[i]);
+						sb.append(" ");
+					}
+					for(String s : plugin.getConfig().getStringList("staff")){
+						Player p = Bukkit.getPlayerExact(s);
+						if(p == null)continue;
+						p.sendMessage(Lang.STAFF_CHAT_FORMAT.toString().replace("{PLAYER}", pl.getName()).replace("{MESSAGE}", sb.toString()));
+					}
+				
 				}else{
 					Settings.Usage(sender, Commands.STAFF);
 					return true;
+				}
+			}else if(args.length > 2){
+				if(args[0].equalsIgnoreCase("chat")){
+					if(!(sender instanceof Player)){
+						Settings.sendLang(sender, Lang.PLAYER_ONLY);
+						return true;
+					}
+					Player pl = (Player) sender;
+					if(!sender.hasPermission("tcl.staff.chat")){
+						Settings.sendLang(sender, Lang.NO_PERMS);
+						return true;
+					}
+					List<String> cs = plugin.getConfig().getStringList("staff");
+					if(cs == null){
+						cs = new ArrayList<String>();
+					}
+					if(!cs.contains(pl.getName())){
+						Settings.sendLang(sender, "&cYou must be staff to use this!");
+						return true;
+					}
+					StringBuilder sb = new StringBuilder();
+					for(int i = 1; i < args.length; i++){
+						sb.append(args[i]);
+						sb.append(" ");
+					}
+					for(String s : plugin.getConfig().getStringList("staff")){
+						Player p = Bukkit.getPlayerExact(s);
+						if(p == null)continue;
+						p.sendMessage(Lang.STAFF_CHAT_FORMAT.toString().replace("{PLAYER}", pl.getName()).replace("{MESSAGE}", sb.toString()));
+					}
 				}
 			}else{
 				Settings.Usage(sender, Commands.STAFF);
