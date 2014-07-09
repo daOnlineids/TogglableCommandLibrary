@@ -7,6 +7,8 @@ import java.util.logging.Level;
 
 import me.online.TCL.Commands.TCLFly;
 import me.online.TCL.Commands.TCLHelp;
+import me.online.TCL.Commands.TCLReload;
+import me.online.TCL.Commands.TCLStaff;
 import me.online.TCL.Utils.Commands;
 import me.online.TCL.Utils.Lang;
 
@@ -18,8 +20,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class TogglableCommandLibrary extends JavaPlugin{
 	@Override
 	public void onEnable() {
+		getConfig().options().copyDefaults(true);
+		saveConfig();
 		getCommand("thelp").setExecutor(new TCLHelp(this));
 		getCommand("fly").setExecutor(new TCLFly(this));
+		getCommand("treload").setExecutor(new TCLReload(this));
+		getCommand("staff").setExecutor(new TCLStaff(this));
 		Bukkit.getPluginManager().registerEvents(new Listeners(this), this);
 		loadLang();
 		if (customConfig == null) {

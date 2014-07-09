@@ -8,6 +8,10 @@ commands:
        description: Help page for Togglable Command Library
     fly:
        description: Toggle flight for you or other players!
+    treload:
+       description: Command to reload all configs for Togglable Command Library
+    staff:
+       description: Manage or list server staff
 permissions:
     tcl.help:
        description: Perm for the command /thelp
@@ -18,3 +22,19 @@ permissions:
     tcl.fly.others:
        description: Perm to toggle flight for others with /fly <Player>
        default: op
+    tcl.reload:
+       description: Perm for the command /treload
+       default: op
+    tcl.staff:
+       description: Perm for the command /staff
+       default: op
+    tcl.staff.list:
+       description: Perm for the command /staff list (Page Num)
+       default: op
+    tcl.staff.add:
+       description: Perm for the command /staff add <Player Name>
+       default: op
+    tcl.staff.remove:
+       description: Perm for the command /staff remove <Player Name>
+       default: op
+	   

@@ -5,7 +5,8 @@ package me.online.TCL.Utils;
 public enum Commands {
 	
 	HELP("/thelp (Page #)", "Help page for TCL", "tcl.help"),
-	FLY("/fly (Player)", "Toggle flight", "tcl.fly");
+	FLY("/fly (Player)", "Toggle flight", "tcl.fly"),
+	STAFF("/staff <Add/Remove/List> (#/Player)", "Manage or list server staff", "tcl.staff");
 	
 	private String usage;
 	private String description;
