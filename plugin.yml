@@ -1,0 +1,12 @@
+name: TCL
+author: online
+version: 0.1
+main: me.online.TCL.TogglableCommandLibrary
+description: A bukkit plugin that adds loads of features all of which are highly configurable!
+commands:
+    thelp:
+       description: Help page for Togglable Command Library
+permissions:
+    tcl.help:
+       description: Perm for the command /thelp
+       default: op
