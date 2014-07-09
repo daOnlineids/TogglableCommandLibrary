@@ -6,7 +6,15 @@ description: A bukkit plugin that adds loads of features all of which are highly
 commands:
     thelp:
        description: Help page for Togglable Command Library
+    fly:
+       description: Toggle flight for you or other players!
 permissions:
     tcl.help:
        description: Perm for the command /thelp
+       default: op
+    tcl.fly:
+       description: Perm for the command /fly
+       default: op
+    tcl.fly.others:
+       description: Perm to toggle flight for others with /fly <Player>
        default: op

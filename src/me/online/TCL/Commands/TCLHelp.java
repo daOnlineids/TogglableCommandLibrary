@@ -50,12 +50,14 @@ public class TCLHelp implements CommandExecutor{
 		}
 		return false;
 	}
-	
+
 	public void help(CommandSender s, int pageNum){
 		StringBuilder pl = new StringBuilder();
 		for(Commands cmd : Commands.values()){
-			pl.append(ChatColor.GOLD + cmd.getUsage() + ChatColor.GRAY + " : " + ChatColor.DARK_AQUA + cmd.getDescription());
-			pl.append("\n");
+			if(plugin.isEnabled(cmd)){
+				pl.append(ChatColor.GOLD + cmd.getUsage() + ChatColor.GRAY + " : " + ChatColor.DARK_AQUA + cmd.getDescription());
+				pl.append("\n");
+			}
 		}
 		int pageHeight = ChatPaginator.CLOSED_CHAT_PAGE_HEIGHT - 3;
 		int pageWidth = ChatPaginator.GUARANTEED_NO_WRAP_CHAT_PAGE_WIDTH;

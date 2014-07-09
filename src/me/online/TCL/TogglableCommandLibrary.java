@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 
+import me.online.TCL.Commands.TCLFly;
 import me.online.TCL.Commands.TCLHelp;
 import me.online.TCL.Utils.Commands;
 import me.online.TCL.Utils.Lang;
@@ -18,6 +19,7 @@ public class TogglableCommandLibrary extends JavaPlugin{
 	@Override
 	public void onEnable() {
 		getCommand("thelp").setExecutor(new TCLHelp(this));
+		getCommand("fly").setExecutor(new TCLFly(this));
 		Bukkit.getPluginManager().registerEvents(new Listeners(this), this);
 		loadLang();
 		if (customConfig == null) {

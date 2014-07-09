@@ -12,7 +12,7 @@ public class Settings {
 		s.sendMessage(Lang.PREFIX.toString() + ChatColor.translateAlternateColorCodes('&', l));
 	}
 	public static void Usage(CommandSender s, Commands cmd){
-		sendLang(s, Lang.PROPER_USAGE.toString().replaceAll("{USAGE}", cmd.getUsage()));
+		sendLang(s, Lang.PROPER_USAGE.toString().replace("{USAGE}", cmd.getUsage()));
 	}
 	public static String unknownCommand(){
 		return Lang.UNKNOWN_COMMAND.toString();
