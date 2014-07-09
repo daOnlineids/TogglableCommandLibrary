@@ -14,5 +14,8 @@ public class Settings {
 	public static void Usage(CommandSender s, Commands cmd){
 		sendLang(s, Lang.PROPER_USAGE.toString().replaceAll("{USAGE}", cmd.getUsage()));
 	}
+	public static String unknownCommand(){
+		return Lang.UNKNOWN_COMMAND.toString();
+	}
 
 }

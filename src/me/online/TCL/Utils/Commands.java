@@ -4,7 +4,7 @@ package me.online.TCL.Utils;
 
 public enum Commands {
 	
-	HELP("/thelp (Page #)", "Help page for Togglable Command Library", "tcl.help");
+	HELP("/thelp (Page #)", "Help page for TCL", "tcl.help");
 	
 	private String usage;
 	private String description;

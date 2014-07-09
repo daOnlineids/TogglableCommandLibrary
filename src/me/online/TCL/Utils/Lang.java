@@ -11,6 +11,7 @@ public enum Lang {
     MUST_BE_NUMBER("must-be-number", "&c{ARG} is not a number!"),
     NO_PERMS("no-perm", "&cNo Permission"),
     PROPER_USAGE("proper-usage", "&cProper Usage: {USAGE}"),
+    UNKNOWN_COMMAND("unknown-command", "Unknown command. Type 'help' for help."),
 	IMPROPER_PAGE("improper-page", "&c{ARG} is not a proper page number!");
 	private String path;
 	private String def;

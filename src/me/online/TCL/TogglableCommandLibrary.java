@@ -9,6 +9,7 @@ import me.online.TCL.Commands.TCLHelp;
 import me.online.TCL.Utils.Commands;
 import me.online.TCL.Utils.Lang;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,12 +18,22 @@ public class TogglableCommandLibrary extends JavaPlugin{
 	@Override
 	public void onEnable() {
 		getCommand("thelp").setExecutor(new TCLHelp(this));
+		Bukkit.getPluginManager().registerEvents(new Listeners(this), this);
 		loadLang();
 		if (customConfig == null) {
 			reloadEnabledCommands();
 		}
 		loadEnabledCommands();
 		saveEnabledCommands();
+		if (customConfig1 == null) {
+			reloadPlayerData();
+		}
+		savePlayerData();
+		if (customConfig2 == null) {
+			reloadSettings();
+		}
+		customConfig2.options().copyDefaults(true);
+		saveSettings();
 	}
 	public static YamlConfiguration LANG;
 	public static File LANG_FILE;
@@ -79,6 +90,10 @@ public class TogglableCommandLibrary extends JavaPlugin{
 	
 	private FileConfiguration customConfig = null;
 	private File customConfigFile = null;
+	private FileConfiguration customConfig1 = null;
+	private File customConfigFile1 = null;
+	private FileConfiguration customConfig2 = null;
+	private File customConfigFile2 = null;
 	public void reloadEnabledCommands() {
 		if (customConfigFile == null) {
 			customConfigFile = new File(getDataFolder(), "enabledCommands.yml");
@@ -121,6 +136,62 @@ public class TogglableCommandLibrary extends JavaPlugin{
 			return true;
 		}else{
 			return false;
+		}
+	}
+	public void reloadPlayerData() {
+		if (customConfigFile1 == null) {
+			customConfigFile1 = new File(getDataFolder(), "playerData.yml");
+		}
+		customConfig1 = YamlConfiguration.loadConfiguration(customConfigFile1);
+
+		InputStream defConfigStream = this.getResource("playerData.yml");
+		if (defConfigStream != null) {
+			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+			customConfig1.setDefaults(defConfig);
+		}
+	}
+	public FileConfiguration getPlayerData() {
+		if (customConfig1 == null) {
+			reloadPlayerData();
+		}
+		return customConfig1;
+	}
+	public void savePlayerData() {
+		if (customConfig1 == null || customConfigFile1 == null) {
+			return;
+		}
+		try {
+			getPlayerData().save(customConfigFile1);
+		} catch (IOException ex) {
+			getLogger().log(Level.SEVERE, "Could not save config to " + customConfigFile1, ex);
+		}
+	}
+	public void reloadSettings() {
+		if (customConfigFile2 == null) {
+			customConfigFile2 = new File(getDataFolder(), "settings.yml");
+		}
+		customConfig2 = YamlConfiguration.loadConfiguration(customConfigFile2);
+
+		InputStream defConfigStream = this.getResource("settings.yml");
+		if (defConfigStream != null) {
+			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+			customConfig2.setDefaults(defConfig);
+		}
+	}
+	public FileConfiguration getSettings() {
+		if (customConfig2 == null) {
+			reloadSettings();
+		}
+		return customConfig2;
+	}
+	public void saveSettings() {
+		if (customConfig2 == null || customConfigFile2 == null) {
+			return;
+		}
+		try {
+			getSettings().save(customConfigFile2);
+		} catch (IOException ex) {
+			getLogger().log(Level.SEVERE, "Could not save config to " + customConfigFile2, ex);
 		}
 	}
 }

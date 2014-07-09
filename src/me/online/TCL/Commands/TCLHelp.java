@@ -20,6 +20,7 @@ public class TCLHelp implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command command, String label,
 			String[] args) {
 		if(!plugin.isEnabled(Commands.HELP)){
+			sender.sendMessage(Lang.UNKNOWN_COMMAND.toString());
 			return false;
 		}
 		if(command.getName().equalsIgnoreCase("thelp")){
@@ -34,12 +35,12 @@ public class TCLHelp implements CommandExecutor{
 				try{
 					Integer.parseInt(page);
 				}catch(NumberFormatException e){
-					Settings.sendLang(sender, Lang.MUST_BE_NUMBER.toString().replaceAll("{ARG}", page));
+					Settings.sendLang(sender, Lang.MUST_BE_NUMBER.toString().replace("{ARG}", page));
 					return true;
 				}
 				int pageNum = Integer.parseInt(page);
 				if(pageNum <= 0){
-					Settings.sendLang(sender, Lang.IMPROPER_PAGE.toString().replaceAll("{ARG}", page));
+					Settings.sendLang(sender, Lang.IMPROPER_PAGE.toString().replace("{ARG}", page));
 					return true;
 				}
 				help(sender, pageNum);
@@ -59,7 +60,7 @@ public class TCLHelp implements CommandExecutor{
 		int pageHeight = ChatPaginator.CLOSED_CHAT_PAGE_HEIGHT - 3;
 		int pageWidth = ChatPaginator.GUARANTEED_NO_WRAP_CHAT_PAGE_WIDTH;
 		ChatPaginator.ChatPage page = ChatPaginator.paginate(pl.toString(), pageNum, pageWidth, pageHeight);
-		s.sendMessage(ChatColor.GRAY + "------ " + ChatColor.GREEN + "TCL " + ChatColor.GOLD + "Help" + ChatColor.GRAY + " ------ " + ChatColor.GOLD + "Page (" + ChatColor.RED + page.getPageNumber() + ChatColor.GOLD + "/" + ChatColor.RED + page.getTotalPages() + ChatColor.GOLD + ")" + ChatColor.GRAY + " ------");
+		s.sendMessage(ChatColor.GRAY + "------ " + ChatColor.DARK_AQUA + "TCL " + ChatColor.GOLD + "Help" + ChatColor.GRAY + " ------ " + ChatColor.GOLD + "Page (" + ChatColor.RED + page.getPageNumber() + ChatColor.GOLD + "/" + ChatColor.RED + page.getTotalPages() + ChatColor.GOLD + ")" + ChatColor.GRAY + " ------");
 		for(String str : page.getLines()){
 			s.sendMessage(str);
 		}
