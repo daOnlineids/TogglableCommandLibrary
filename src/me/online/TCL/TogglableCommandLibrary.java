@@ -3,18 +3,23 @@ package me.online.TCL;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 
 import me.online.TCL.Commands.TCLFly;
 import me.online.TCL.Commands.TCLHelp;
 import me.online.TCL.Commands.TCLReload;
+import me.online.TCL.Commands.TCLSmelt;
 import me.online.TCL.Commands.TCLStaff;
 import me.online.TCL.Utils.Commands;
 import me.online.TCL.Utils.Lang;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class TogglableCommandLibrary extends JavaPlugin{
@@ -26,6 +31,7 @@ public class TogglableCommandLibrary extends JavaPlugin{
 		getCommand("fly").setExecutor(new TCLFly(this));
 		getCommand("treload").setExecutor(new TCLReload(this));
 		getCommand("staff").setExecutor(new TCLStaff(this));
+		getCommand("smelt").setExecutor(new TCLSmelt(this));
 		Bukkit.getPluginManager().registerEvents(new Listeners(this), this);
 		loadLang();
 		if (customConfig == null) {
@@ -201,5 +207,34 @@ public class TogglableCommandLibrary extends JavaPlugin{
 		} catch (IOException ex) {
 			getLogger().log(Level.SEVERE, "Could not save config to " + customConfigFile2, ex);
 		}
+	}
+	public Map<Material, String> smeltableItems = new HashMap<Material, String>();
+	
+	@SuppressWarnings("deprecation")
+	public ItemStack getItemStack(String typeId, int amount){
+		if(typeId.contains(":")){
+			String id = typeId.split(":")[0];
+			String data = typeId.split(":")[1];
+			if(!isNumber(data)) return null;
+			if(!isNumber(id)) return null;
+			if(Material.getMaterial(Integer.parseInt(id)) == null) return null;
+			ItemStack i = new ItemStack(Material.getMaterial(Integer.parseInt(id)), amount);
+			i.setDurability((short) Short.parseShort(data));
+			return i;
+		}else{
+			String id = typeId;
+			if(!isNumber(id)) return null;
+			if(Material.getMaterial(Integer.parseInt(id)) == null) return null;
+			ItemStack i = new ItemStack(Material.getMaterial(Integer.parseInt(id)), amount);
+			return i;
+		}
+	}
+	public boolean isNumber(String s){
+		try{
+			Integer.parseInt(s);
+		}catch(NumberFormatException e){
+			return false;
+		}
+		return true;
 	}
 }

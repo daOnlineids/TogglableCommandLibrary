@@ -22,6 +22,9 @@ public enum Lang {
     NEVER_PLAYED("never-played", "&6{PLAYER} &chas never played before!"),
     ALREADY_STAFF("already-staff", "&6{PLAYER} &cis already staff!"),
     PROPER_USAGE("proper-usage", "&cProper Usage: {USAGE}"),
+    NO_SMELT_HAND("no-smelt-hand", "&cThe item you are holding isn't smeltable!"),
+    NO_SMELT_INVENTORY("no-smelt-inv", "&cYou have no smeltable items!"),
+    SMELT_SUCCESS("smelt-success", "&6{AMOUNT} &aitems smelted!"),
     UNKNOWN_COMMAND("unknown-command", "Unknown command. Type 'help' for help."),
 	IMPROPER_PAGE("improper-page", "&c{ARG} is not a proper page number!"),
 	NO_PERM_FLIGHT_TOGGLE_OTHERS("no-perm-flight-toggle-others", "&cYou don't have permission to toggle flight for others!");

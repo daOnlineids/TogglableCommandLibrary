@@ -6,6 +6,7 @@ public enum Commands {
 	
 	HELP("/thelp (Page #)", "Help page for TCL", "tcl.help"),
 	FLY("/fly (Player)", "Toggle flight", "tcl.fly"),
+	SMELT("/smelt <Hand/All>", "Smelt your items", "tcl.smelt"),
 	STAFF("/staff <Add/Remove/List/Chat> (#/Player/Message)", "Manage or list server staff", "tcl.staff");
 	
 	private String usage;

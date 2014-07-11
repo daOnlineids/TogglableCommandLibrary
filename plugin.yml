@@ -12,6 +12,8 @@ commands:
        description: Command to reload all configs for Togglable Command Library
     staff:
        description: Manage or list server staff
+    smelt:
+       description: Smelt either your hand or your entire inventory!
 permissions:
     tcl.help:
        description: Perm for the command /thelp
@@ -39,4 +41,7 @@ permissions:
        default: op
     tcl.staff.chat:
        description: Perm for the command /staff chat <Message>
+       default: op
+    tcl.smelt:
+       description: Perm for the command /smelt <Hand/All>
        default: op
